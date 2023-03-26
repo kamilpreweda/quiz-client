@@ -3,6 +3,7 @@ import { Button, Card, CardContent, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system';
 import Center from './Center';
 import useForm from './hooks/useForm';
+import { createAPIEndpoint, ENDPOINTS } from '../api';
 
 const getFreshModel = () => ({
     name: '',
@@ -21,7 +22,10 @@ export default function Login() {
     const login = e => {
         e.preventDefault()
         if (validate())
-            console.log(values);
+            createAPIEndpoint(ENDPOINTS.participant)
+                .post(values)
+                .then(res => console.log(res))
+                .catch(err => console.log(err))
     }
 
     const validate = () => {
